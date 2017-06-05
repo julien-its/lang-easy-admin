@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use JsonSerializable;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -11,7 +12,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="file")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FileRepository")
  */
-class File
+class File implements JsonSerializable
 {
     /**
      * @var int
@@ -75,6 +76,13 @@ class File
 	// Custom methods
 	// -------------------------------------------------------------------------
 
+    public function jsonSerialize()
+    {
+        return array(
+            'filename' => $this->filename,
+            'path' => $this->path,
+        );
+    }
 
 
 	public function getAbsolutePath()

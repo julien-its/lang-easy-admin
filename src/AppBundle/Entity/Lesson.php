@@ -68,7 +68,6 @@ class Lesson implements JsonSerializable
             'number' => $this->number,
             'difficulty' => $this->title,
             'vocabularies' => $this->getVocabularies()->map(function($item){ return $item->jsonSerialize(); })->toArray()
-
         );
     }
 

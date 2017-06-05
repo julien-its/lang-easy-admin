@@ -27,7 +27,7 @@ class Sentence implements JsonSerializable
     /**
      * @var string
      *
-     * @ORM\Column(name="word", type="string", length=150, nullable=false)
+     * @ORM\Column(name="sentence", type="string", length=150, nullable=false)
 	 * @Assert\NotBlank()
 	 * @Assert\Length(max=150)
      */
@@ -73,11 +73,16 @@ class Sentence implements JsonSerializable
     public function jsonSerialize()
     {
         return array(
+            'sentence' => $this->getSentence(),
+            'translation' => $this->getTranslation(),
+            'phonetic' => $this->getPhonetic(),
+            'sound' => $this->getSound() == null ? null : $this->getSound()->jsonSerialize()
         );
     }
 
 	// Automatic methods
 	// -------------------------------------------------------------------------
+
 
 
 
