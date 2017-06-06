@@ -35,4 +35,5 @@ class ApiController extends Controller
     {
         return new Response(json_encode($lesson));
     }
+
 }

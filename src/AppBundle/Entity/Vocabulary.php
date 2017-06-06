@@ -73,16 +73,24 @@ class Vocabulary implements JsonSerializable
      */
     private $lesson;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Photo", inversedBy="vocabulary", cascade={"persist"})
+     * @ORM\JoinColumn(name="photoId", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $photo;
+
 	// Custom methods
 	// -------------------------------------------------------------------------
 
     public function jsonSerialize()
     {
         return array(
+            'id' => $this->id,
             'word' => $this->word,
             'translation' => $this->getTranslation(),
             'phonetic' => $this->getPhonetic(),
             'sound' => $this->getSound() == null ? null : $this->getSound()->jsonSerialize(),
+            'photo' => $this->getPhoto() == null ? null : $this->getPhoto()->jsonSerialize(),
             'examples' => $this->getExamples()->map(function($item){ return $item->jsonSerialize(); })->toArray()
         );
     }
@@ -261,5 +269,53 @@ class Vocabulary implements JsonSerializable
     public function getLesson()
     {
         return $this->lesson;
+    }
+
+    /**
+     * Set photos
+     *
+     * @param \AppBundle\Entity\Photo $photos
+     *
+     * @return Vocabulary
+     */
+    public function setPhotos(\AppBundle\Entity\Photo $photos = null)
+    {
+        $this->photos = $photos;
+
+        return $this;
+    }
+
+    /**
+     * Get photos
+     *
+     * @return \AppBundle\Entity\Photo
+     */
+    public function getPhotos()
+    {
+        return $this->photos;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param \AppBundle\Entity\Photo $photo
+     *
+     * @return Vocabulary
+     */
+    public function setPhoto(\AppBundle\Entity\Photo $photo = null)
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \AppBundle\Entity\Photo
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }
