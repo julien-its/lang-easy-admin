@@ -81,6 +81,7 @@ class File implements JsonSerializable
         return array(
             'filename' => $this->filename,
             'path' => $this->path,
+            'extension' => $this->extension,
         );
     }
 
